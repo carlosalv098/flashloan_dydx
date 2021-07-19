@@ -2,7 +2,7 @@
 pragma solidity ^0.8;
 pragma experimental ABIEncoderV2;
 
-import {Account} from "./ISoloMargin.sol";
+import { Account } from "./ISoloMargin.sol";
 
 /**
  * @title ICallee

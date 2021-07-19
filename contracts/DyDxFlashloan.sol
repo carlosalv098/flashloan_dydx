@@ -7,7 +7,7 @@ import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 import '../interfaces/DyDxFlashloanBase.sol';
 import '../interfaces/ICallee.sol';
 
-contract DyDxFlashloanBase is DydxFlashloanBase, ICallee {
+contract DyDxFlashloan is DydxFlashloanBase, ICallee {
 
     address private constant SOLO = 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e;
     address public user;
@@ -47,8 +47,8 @@ contract DyDxFlashloanBase is DydxFlashloanBase, ICallee {
         Account.Info memory account,
         bytes memory data
     ) public override {
-        require(msg.sender == SOLO, 'the caller to this function is not SOLO');
-        require(sender == address(this), 'sender of the flashloan is not this address');
+        require(msg.sender == SOLO, 'the caller to this function is not SOLO contract');
+        require(sender == address(this), 'sender of the flashloan has to be the address of dydxFlashloan');
         
         Data memory data_decoded = abi.decode(data, (Data));
         uint repay_amount = data_decoded.repayAmount;
@@ -61,5 +61,4 @@ contract DyDxFlashloanBase is DydxFlashloanBase, ICallee {
         emit Log('repay amount', repay_amount);
         emit Log('balance - repay amount', balance - repay_amount);
     }
-
 }
